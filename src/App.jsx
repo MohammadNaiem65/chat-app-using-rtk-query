@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Provider } from 'react-redux';
 
-import store from './app/store';
+import { useAuthCheck } from './hooks';
+
 import Conversation from './pages/Conversation';
 import Inbox from './pages/Inbox';
 import Login from './pages/Login';
@@ -27,10 +27,12 @@ const routes = createBrowserRouter([
 ]);
 
 function App() {
-	return (
-		<Provider store={store}>
-			<RouterProvider router={routes} />
-		</Provider>
+	const authChecked = useAuthCheck();
+
+	return !authChecked ? (
+		<p>Checking Auth...</p>
+	) : (
+		<RouterProvider router={routes} />
 	);
 }
 
