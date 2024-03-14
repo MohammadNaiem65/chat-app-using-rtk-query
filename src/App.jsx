@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import store from './app/store';
 import Conversation from './pages/Conversation';
 import Inbox from './pages/Inbox';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { RouterProvider } from 'react-router-dom';
 
 const routes = createBrowserRouter([
 	{
@@ -28,7 +27,11 @@ const routes = createBrowserRouter([
 ]);
 
 function App() {
-	return <RouterProvider router={routes} />;
+	return (
+		<Provider store={store}>
+			<RouterProvider router={routes} />
+		</Provider>
+	);
 }
 
 export default App;
