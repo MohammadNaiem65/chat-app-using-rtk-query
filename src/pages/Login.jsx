@@ -24,9 +24,9 @@ export default function Login() {
 
 	useEffect(() => {
 		if (isError) {
-			setError(processError.message);
+			setError(processError.data);
 		}
-	}, [isError, processError?.message]);
+	}, [isError, processError?.data]);
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -113,7 +113,7 @@ export default function Login() {
 							</button>
 						</div>
 
-						{error && <Error message='There was an error' />}
+						{error && <Error message={error} />}
 					</form>
 				</div>
 			</div>
