@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import gravatarUrl from 'gravatar-url';
 
 import { useGetMessagesQuery } from '../../../features/messages/messagesApi';
+import getPartnerInfo from '../../../utils/getPartnerInfo';
 import ChatHead from './ChatHead';
 import Messages from './Messages';
 import Options from './Options';
@@ -8,6 +11,7 @@ import Error from '../../ui/Error';
 
 export default function ChatBody() {
 	const { id } = useParams();
+	const { user } = useSelector((state) => state.auth);
 	const {
 		data: messages,
 		isLoading,
@@ -22,14 +26,21 @@ export default function ChatBody() {
 		content = <p>Loading...</p>;
 	} else if (!isLoading && isError) {
 		content = <Error message={error?.data} />;
-	} else if (!isLoading && isSuccess) {
+	} else if (!isLoading && isSuccess && messages.length === 0) {
+		content = <p>No data found!</p>;
+	} else if (!isLoading && isSuccess && messages.length > 0) {
+		const partner = getPartnerInfo(
+			[messages[0]?.sender, messages[0]?.receiver],
+			user?.email
+		);
+
 		content = (
 			<>
 				<ChatHead
-					avatar='https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383__340.jpg'
-					name='Akash Ahmed'
+					avatar={gravatarUrl(partner?.email)}
+					name={partner?.name}
 				/>
-				<Messages messages={messages} />
+				<Messages messages={messages} partner={partner} />
 				<Options />
 			</>
 		);

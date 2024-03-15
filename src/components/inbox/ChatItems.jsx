@@ -21,6 +21,8 @@ export default function ChatItems() {
 		content = <p className='m-2'>Loading...</p>;
 	} else if (!isLoading && isError) {
 		content = <Error message={error?.data} />;
+	} else if (!isLoading && isSuccess && conversations.length === 0) {
+		content = <li className='mx-4 my-2'>No conversation found.</li>;
 	} else if (!isLoading && isSuccess && conversations.length > 0) {
 		content = conversations.map((conversation) => (
 			<li key={conversation?.id}>
