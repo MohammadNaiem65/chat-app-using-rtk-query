@@ -1,28 +1,33 @@
+import { useSelector } from 'react-redux';
+import { useGetConversationQuery } from '../../features/conversation/conversationApi';
 import ChatItem from './ChatItem';
+import Error from '../ui/Error';
 
 export default function ChatItems() {
-	return (
-		<ul>
-			<li>
-				<ChatItem
-					avatar='https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg'
-					name='Saad Hasan'
-					lastMessage='bye'
-					lastTime='25 minutes'
-				/>
-				<ChatItem
-					avatar='https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg'
-					name='Sumit Saha'
-					lastMessage='will talk to you later'
-					lastTime='10 minutes'
-				/>
-				<ChatItem
-					avatar='https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg'
-					name='Mehedi Hasan'
-					lastMessage='thanks for your support'
-					lastTime='15 minutes'
-				/>
+	const { user } = useSelector((state) => state.auth);
+
+	const {
+		data: conversations,
+		isLoading,
+		isSuccess,
+		isError,
+		error,
+	} = useGetConversationQuery(user?.email);
+
+	// decide what to render
+	let content = null;
+
+	if (isLoading) {
+		content = <p className='m-2'>Loading...</p>;
+	} else if (!isLoading && isError) {
+		content = <Error message={error?.data} />;
+	} else if (!isLoading && isSuccess && conversations.length > 0) {
+		content = conversations.map((conversation) => (
+			<li key={conversation?.id}>
+				<ChatItem conversation={conversation} />
 			</li>
-		</ul>
-	);
+		));
+	}
+
+	return <ul>{content}</ul>;
 }
