@@ -87,22 +87,15 @@ export default function Modal({ open, control }) {
 		}
 		// add conversation
 		else if (data.partnerExists && !data.conversationId) {
-			const {
-				email: partnerEmail,
-				name: partnerName,
-				id: partnerId,
-			} = partnerDetail[0];
+			const receiver = {
+				email: partnerDetail[0].email,
+				name: partnerDetail[0].name,
+				id: partnerDetail[0].id,
+			};
 
 			const messageDetails = {
-				participants: `${sender.email}-${partnerEmail}`,
-				users: [
-					sender,
-					{
-						id: partnerId,
-						name: partnerName,
-						email: partnerEmail,
-					},
-				],
+				participants: `${sender.email}-${receiver.email}`,
+				users: [sender, receiver],
 				message: data.message,
 				timestamp: Date.now(),
 			};
