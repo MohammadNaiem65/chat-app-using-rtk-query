@@ -41,7 +41,10 @@ export default function ChatBody() {
 					name={partner?.name}
 				/>
 				<Messages messages={messages} partner={partner} />
-				<Options />
+				<Options
+					conversationId={messages[0]?.conversationId}
+					sender={user}
+				/>
 			</>
 		);
 	}

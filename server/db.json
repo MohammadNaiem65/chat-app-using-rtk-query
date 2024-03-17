@@ -52,8 +52,8 @@
           "email": "sumit@learnwithsumit.com"
         }
       ],
-      "message": "Hello...",
-      "timestamp": 1710666697093,
+      "message": "oh, accha. ",
+      "timestamp": 1710668536750,
       "id": 1
     }
   ],
@@ -70,25 +70,73 @@
         "name": "Sumit Saha",
         "email": "sumit@learnwithsumit.com"
       },
-      "message": "Hi",
-      "timestamp": 1710664573542,
+      "message": "Hello, Sir",
+      "timestamp": 1710666805057,
       "id": 1
     },
     {
       "conversationId": 1,
       "sender": {
+        "id": 1,
+        "name": "Sumit Saha",
+        "email": "sumit@learnwithsumit.com"
+      },
+      "receiver": {
         "id": 4,
         "name": "Md Rifat Ahmed Tusar",
         "email": "prac@tice.com"
+      },
+      "message": "Hi, how are you? Do I know you?",
+      "timestamp": 1710666854413,
+      "id": 2
+    },
+    {
+      "conversationId": 1,
+      "sender": {
+        "email": "prac@tice.com",
+        "name": "Md Rifat Ahmed Tusar",
+        "id": 4
       },
       "receiver": {
         "id": 1,
         "name": "Sumit Saha",
         "email": "sumit@learnwithsumit.com"
       },
-      "message": "Hello...",
-      "timestamp": 1710666697093,
-      "id": 2
+      "message": "Fine, Sir. You don't know me but I know you...",
+      "timestamp": 1710668423029,
+      "id": 3
+    },
+    {
+      "conversationId": 1,
+      "sender": {
+        "email": "prac@tice.com",
+        "name": "Md Rifat Ahmed Tusar",
+        "id": 4
+      },
+      "receiver": {
+        "id": 1,
+        "name": "Sumit Saha",
+        "email": "sumit@learnwithsumit.com"
+      },
+      "message": "I am your fan, Sir 💝",
+      "timestamp": 1710668452813,
+      "id": 4
+    },
+    {
+      "conversationId": 1,
+      "sender": {
+        "email": "sumit@learnwithsumit.com",
+        "name": "Sumit Saha",
+        "id": 1
+      },
+      "receiver": {
+        "id": 4,
+        "name": "Md Rifat Ahmed Tusar",
+        "email": "prac@tice.com"
+      },
+      "message": "oh, accha. ",
+      "timestamp": 1710668536750,
+      "id": 5
     }
   ]
 }
