@@ -66,6 +66,11 @@ export default function Modal({ open, control }) {
 	// handle send message
 	const handleSendMessage = (e) => {
 		e.preventDefault();
+		const sender = {
+			id: user.id,
+			name: user.name,
+			email: user.email,
+		};
 
 		// edit conversation
 		if (data.partnerExists && data.conversationId) {
@@ -74,11 +79,14 @@ export default function Modal({ open, control }) {
 				timestamp: Date.now(),
 			};
 
-			editConversation({ id: data.conversationId, data: messageDetails });
+			editConversation({
+				sender,
+				id: data.conversationId,
+				data: messageDetails,
+			});
 		}
 		// add conversation
 		else if (data.partnerExists && !data.conversationId) {
-			const { email: userEmail, name: userName, id: userId } = user;
 			const {
 				email: partnerEmail,
 				name: partnerName,
@@ -86,24 +94,20 @@ export default function Modal({ open, control }) {
 			} = partnerDetail[0];
 
 			const messageDetails = {
-				participants: `${userEmail}-${partnerEmail}`,
+				participants: `${sender.email}-${partnerEmail}`,
 				users: [
+					sender,
 					{
-						email: userEmail,
-						name: userName,
-						id: userId,
-					},
-					{
-						email: partnerEmail,
-						name: partnerName,
 						id: partnerId,
+						name: partnerName,
+						email: partnerEmail,
 					},
 				],
 				message: data.message,
 				timestamp: Date.now(),
 			};
 
-			addConversation(messageDetails);
+			addConversation({ data: messageDetails, sender });
 		}
 	};
 

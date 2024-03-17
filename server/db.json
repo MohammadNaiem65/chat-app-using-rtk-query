@@ -39,142 +39,40 @@
   ],
   "conversations": [
     {
-      "id": 1,
-      "participants": "sumit@learnwithsumit.com-prac@tice.com",
+      "participants": "prac@tice.com-sumit@learnwithsumit.com",
       "users": [
         {
-          "email": "sumit@learnwithsumit.com",
+          "id": 4,
+          "name": "Md Rifat Ahmed Tusar",
+          "email": "prac@tice.com"
+        },
+        {
+          "id": 1,
           "name": "Sumit Saha",
-          "id": 1
-        },
-        {
-          "email": "prac@tice.com",
-          "name": "Md Rifat Ahmed Tusar",
-          "id": 4
-        }
-      ],
-      "message": "How's the day?",
-      "timestamp": 1710658101349
-    },
-    {
-      "id": 2,
-      "participants": "sumit@learnwithsumit.com-saad@learnwithsumit.com",
-      "users": [
-        {
-          "email": "sumit@learnwithsumit.com",
-          "name": "Sumit Saha",
-          "id": 1
-        },
-        {
-          "email": "akash@learnwithsumit.com",
-          "name": "Saad Hasan",
-          "id": 3
-        }
-      ],
-      "message": "Hello",
-      "timestamp": 1710659723157
-    },
-    {
-      "participants": "prac@tice.com-saad@learnwithsumit.com",
-      "users": [
-        {
-          "email": "prac@tice.com",
-          "name": "Md Rifat Ahmed Tusar",
-          "id": 4
-        },
-        {
-          "email": "saad@learnwithsumit.com",
-          "name": "Saad Hasan",
-          "id": 3
-        }
-      ],
-      "message": "Assalamu Alaikum",
-      "timestamp": 1710658756892,
-      "id": 3
-    },
-    {
-      "participants": "saad@learnwithsumit.com-mdratahmednaiem@gmail.com",
-      "users": [
-        {
-          "email": "saad@learnwithsumit.com",
-          "name": "Saad Hasan",
-          "id": 3
-        },
-        {
-          "email": "mdratahmednaiem@gmail.com",
-          "name": "Md Rifat Ahmed Tusar",
-          "id": 6
+          "email": "sumit@learnwithsumit.com"
         }
       ],
       "message": "Hi",
-      "timestamp": 1710659209390,
-      "id": 4
+      "timestamp": 1710664573542,
+      "id": 1
     }
   ],
   "messages": [
     {
-      "id": 1,
       "conversationId": 1,
       "sender": {
-        "email": "sumit@learnwithsumit.com",
-        "name": "Sumit Saha",
-        "id": 1
-      },
-      "receiver": {
-        "email": "prac@tice.com",
+        "id": 4,
         "name": "Md Rifat Ahmed Tusar",
-        "id": 4
-      },
-      "message": "Hello",
-      "timestamp": 1661976143557
-    },
-    {
-      "id": 2,
-      "conversationId": 1,
-      "sender": {
-        "email": "prac@tice.com",
-        "name": "Md Rifat Ahmed Tusar",
-        "id": 4
+        "email": "prac@tice.com"
       },
       "receiver": {
-        "email": "sumit@learnwithsumit.com",
+        "id": 1,
         "name": "Sumit Saha",
-        "id": 1
+        "email": "sumit@learnwithsumit.com"
       },
-      "message": "How are you?",
-      "timestamp": 1661976143678
-    },
-    {
-      "id": 3,
-      "conversationId": 1,
-      "sender": {
-        "email": "sumit@learnwithsumit.com",
-        "name": "Sumit Saha",
-        "id": 1
-      },
-      "receiver": {
-        "email": "prac@tice.com",
-        "name": "Md Rifat Ahmed Tusar",
-        "id": 4
-      },
-      "message": "Fine, you?",
-      "timestamp": 1661976143680
-    },
-    {
-      "id": 4,
-      "conversationId": 2,
-      "sender": {
-        "email": "sumit@learnwithsumit.com",
-        "name": "Sumit Saha",
-        "id": 1
-      },
-      "receiver": {
-        "email": "saad@learnwithsumit.com",
-        "name": "Saad Hasan",
-        "id": 3
-      },
-      "message": "How's it going?",
-      "timestamp": 1661976143680
+      "message": "Hi",
+      "timestamp": 1710664573542,
+      "id": 1
     }
   ]
 }
