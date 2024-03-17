@@ -63,6 +63,50 @@ export default function Modal({ open, control }) {
 		};
 	};
 
+	// handle send message
+	const handleSendMessage = (e) => {
+		e.preventDefault();
+
+		// edit conversation
+		if (data.partnerExists && data.conversationId) {
+			const messageDetails = {
+				message: data.message,
+				timestamp: Date.now(),
+			};
+
+			editConversation({ id: data.conversationId, data: messageDetails });
+		}
+		// add conversation
+		else if (data.partnerExists && !data.conversationId) {
+			const { email: userEmail, name: userName, id: userId } = user;
+			const {
+				email: partnerEmail,
+				name: partnerName,
+				id: partnerId,
+			} = partnerDetail[0];
+
+			const messageDetails = {
+				participants: `${userEmail}-${partnerEmail}`,
+				users: [
+					{
+						email: userEmail,
+						name: userName,
+						id: userId,
+					},
+					{
+						email: partnerEmail,
+						name: partnerName,
+						id: partnerId,
+					},
+				],
+				message: data.message,
+				timestamp: Date.now(),
+			};
+
+			addConversation(messageDetails);
+		}
+	};
+
 	// check if the partner and any conversation exits with this partner
 	useEffect(() => {
 		if (Array.isArray(partnerDetail) && partnerDetail?.length === 0) {
@@ -88,6 +132,16 @@ export default function Modal({ open, control }) {
 			setData((prev) => ({ ...prev, partnerExists: true }));
 		}
 	}, [conversations, partnerDetail, user?.email]);
+
+	// close modal upon successful edit/add conversation
+	useEffect(() => {
+		if (addConversationIsSuccess || editConversationIsSuccess) {
+			control();
+		}
+
+		return () => {};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [addConversationIsSuccess, editConversationIsSuccess]);
 
 	// remove error if any input field changes
 	useEffect(() => {
