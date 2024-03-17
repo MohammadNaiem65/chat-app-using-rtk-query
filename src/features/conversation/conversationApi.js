@@ -43,6 +43,25 @@ const conversationApi = apiSlice.injectEndpoints({
 				method: 'PATCH',
 				body: data,
 			}),
+
+			async onQueryStarted({ sender }, { queryFulfilled, dispatch }) {
+				const { data } = await queryFulfilled;
+
+				const { id, message, timestamp, users } = data || {};
+				const receiver = users.find((user) => user.id !== sender.id);
+
+				const messageDetails = {
+					conversationId: id,
+					sender,
+					receiver,
+					message,
+					timestamp,
+				};
+
+				dispatch(
+					messagesApi.endpoints.addMessage.initiate(messageDetails)
+				);
+			},
 		}),
 	}),
 });

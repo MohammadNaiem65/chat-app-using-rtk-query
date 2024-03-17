@@ -52,8 +52,8 @@
           "email": "sumit@learnwithsumit.com"
         }
       ],
-      "message": "Hi",
-      "timestamp": 1710664573542,
+      "message": "Hello...",
+      "timestamp": 1710666697093,
       "id": 1
     }
   ],
@@ -73,6 +73,22 @@
       "message": "Hi",
       "timestamp": 1710664573542,
       "id": 1
+    },
+    {
+      "conversationId": 1,
+      "sender": {
+        "id": 4,
+        "name": "Md Rifat Ahmed Tusar",
+        "email": "prac@tice.com"
+      },
+      "receiver": {
+        "id": 1,
+        "name": "Sumit Saha",
+        "email": "sumit@learnwithsumit.com"
+      },
+      "message": "Hello...",
+      "timestamp": 1710666697093,
+      "id": 2
     }
   ]
 }
