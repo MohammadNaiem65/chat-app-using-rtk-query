@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useGetConversationQuery } from '../../features/conversation/conversationApi';
+import { useGetConversationsQuery } from '../../features/conversation/conversationApi';
 import ChatItem from './ChatItem';
 import Error from '../ui/Error';
 
@@ -12,7 +12,7 @@ export default function ChatItems() {
 		isSuccess,
 		isError,
 		error,
-	} = useGetConversationQuery(user?.email);
+	} = useGetConversationsQuery(user?.email);
 
 	// decide what to render
 	let content = null;

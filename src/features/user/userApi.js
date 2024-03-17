@@ -9,3 +9,4 @@ const userApi = apiSlice.injectEndpoints({
 });
 
 export default userApi;
+export const { useGetUserQuery } = userApi;
