@@ -44,23 +44,51 @@ const conversationApi = apiSlice.injectEndpoints({
 				body: data,
 			}),
 
-			async onQueryStarted({ sender }, { queryFulfilled, dispatch }) {
-				const { data } = await queryFulfilled;
+			async onQueryStarted(
+				{ id, sender, data },
+				{ queryFulfilled, dispatch }
+			) {
+				// optimistic cache update start
+				const patchResult = dispatch(
+					apiSlice.util.updateQueryData(
+						'getConversations',
+						sender.email,
+						(draft) => {
+							const conversationToEdit = draft.find(
+								(conversation) => conversation.id == id
+							);
 
-				const { id, message, timestamp, users } = data || {};
-				const receiver = users.find((user) => user.id !== sender.id);
-
-				const messageDetails = {
-					conversationId: id,
-					sender,
-					receiver,
-					message,
-					timestamp,
-				};
-
-				dispatch(
-					messagesApi.endpoints.addMessage.initiate(messageDetails)
+							conversationToEdit.message = data.message;
+							conversationToEdit.timestamp = data.timestamp;
+						}
+					)
 				);
+				// optimistic cache update end
+
+				try {
+					const { data } = await queryFulfilled;
+
+					const { message, timestamp, users } = data || {};
+					const receiver = users.find(
+						(user) => user.id !== sender.id
+					);
+
+					const messageDetails = {
+						conversationId: id,
+						sender,
+						receiver,
+						message,
+						timestamp,
+					};
+
+					dispatch(
+						messagesApi.endpoints.addMessage.initiate(
+							messageDetails
+						)
+					);
+				} catch (error) {
+					patchResult.undo();
+				}
 			},
 		}),
 	}),
