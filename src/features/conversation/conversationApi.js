@@ -18,22 +18,7 @@ const conversationApi = apiSlice.injectEndpoints({
 				body: data,
 			}),
 
-			async onQueryStarted(
-				{ sender, data: messageInfo },
-				{ queryFulfilled, dispatch }
-			) {
-				// optimistic cache update start
-				const patchResult = dispatch(
-					apiSlice.util.updateQueryData(
-						'getConversations',
-						sender.email,
-						(draft) => {
-							draft.push({ ...messageInfo, id: draft.length });
-						}
-					)
-				);
-				// optimistic cache update end
-
+			async onQueryStarted({ sender }, { queryFulfilled, dispatch }) {
 				try {
 					const { data } = await queryFulfilled;
 
@@ -54,12 +39,35 @@ const conversationApi = apiSlice.injectEndpoints({
 						messagesApi.endpoints.addMessage.initiate(
 							messageDetails
 						)
-					);
+					)
+					// pessimistic cache update
+					.then((res) => {
+						// cache new conversation
+						dispatch(
+							apiSlice.util.updateQueryData(
+								'getConversations',
+								sender.email,
+								(draft) => {
+									draft.unshift(data);
+								}
+							)
+						);
+
+						// cache new message
+						dispatch(
+							apiSlice.util.upsertQueryData(
+								'getMessages',
+								id.toString(), 
+								[res.data] 
+							)
+						);
+					});
 				} catch (err) {
-					patchResult.undo();
+					// Handle error
 				}
 			},
 		}),
+
 		editConversation: builder.mutation({
 			query: ({ id, data }) => ({
 				url: `/conversations/${id}`,
@@ -104,9 +112,20 @@ const conversationApi = apiSlice.injectEndpoints({
 						timestamp,
 					};
 
-					dispatch(
+					const res = await dispatch(
 						messagesApi.endpoints.addMessage.initiate(
 							messageDetails
+						)
+					).unwrap();
+
+					// pessimistic cache update of messages
+					dispatch(
+						apiSlice.util.updateQueryData(
+							'getMessages',
+							id.toString(),
+							(draft) => {
+								draft.unshift(res);
+							}
 						)
 					);
 				} catch (error) {
