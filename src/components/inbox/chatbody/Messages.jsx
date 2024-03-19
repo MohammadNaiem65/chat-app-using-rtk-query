@@ -5,10 +5,10 @@ export default function Messages({ messages, partner }) {
 		<div className='relative w-full h-[calc(100vh_-_197px)] p-6 overflow-y-auto flex flex-col-reverse'>
 			<ul className='space-y-2'>
 				{messages.length > 0
-					? [...messages].reverse().map((message) => {
+					? [...messages].reverse().map((message, index) => {
 							return (
 								<Message
-									key={message.id}
+									key={index}
 									justify={
 										partner?.email === message.sender.email
 											? 'start'
@@ -22,7 +22,7 @@ export default function Messages({ messages, partner }) {
 									message={message.message}
 								/>
 							);
-					})
+					  })
 					: messages.length === 0 && <p>No messages found</p>}
 			</ul>
 		</div>

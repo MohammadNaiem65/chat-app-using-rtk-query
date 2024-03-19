@@ -26,6 +26,12 @@ router.render = (req, res) => {
 			data: res.locals.data,
 		});
 	}
+	if (path.includes('/messages') && method === 'POST') {
+		// emit socket event
+		io.emit('message', {
+			data: res.locals.data,
+		});
+	}
 
 	res.json(res.locals.data);
 };
