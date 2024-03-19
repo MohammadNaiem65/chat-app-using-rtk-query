@@ -18,12 +18,13 @@ router.render = (req, res) => {
 	const method = req.method;
 
 	if (
-		path.includes(
-			'/conversations' && (method === 'POST' || method === 'PATCH')
-		)
+		path.includes('/conversations') &&
+		(method === 'POST' || method === 'PATCH')
 	) {
-		// emit socket response
-		io.emit('conversation', { data: res.locals.data });
+		// emit socket event
+		io.emit('conversation', {
+			data: res.locals.data,
+		});
 	}
 
 	res.json(res.locals.data);
